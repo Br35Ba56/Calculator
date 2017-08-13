@@ -114,12 +114,18 @@ class Calculator {
     }
 
     private void evaluate() {
-        List<String> expression = new InfixToPostfix().infixToPostfix(ExpressionFormatter
-                .formatter(infixExpressionBuilder.toString()));
-        Node exp = ExpressionTree.expressionTreeBuilder(expression);
-        displayTextField.setText(String.valueOf(exp.evaluate()));
-        infixExpressionBuilder.setLength(0);
-        ExpressionFormatter.clear();
+        try {
+            List<String> expression = new InfixToPostfix().infixToPostfix(ExpressionFormatter
+                    .formatter(infixExpressionBuilder.toString()));
+            Node exp = ExpressionTree.expressionTreeBuilder(expression);
+            displayTextField.setText(String.valueOf(exp.evaluate()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayTextField.setText("Error");
+        } finally {
+            infixExpressionBuilder.setLength(0);
+            ExpressionFormatter.clear();
+        }
     }
 
     private void appendText(String input) {
